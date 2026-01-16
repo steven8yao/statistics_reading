@@ -1,195 +1,204 @@
 # Stage 2 Summary Sheet: Random Variables & Distributions
 
-A concise but thorough reference for the core objects used in **stochastic processes**: random variables, distributions (PMF/PDF/CDF), expectation/variance, and dependence (covariance/independence).
+This sheet continues Stage 1 and introduces **random variables**, their **distributions**, and basic notions of **dependence**.
+The style matches Stage 1 exactly: readable Markdown, inline symbols, no LaTeX math blocks.
 
 ---
 
 ## 1. Random Variable (RV)
 
-**Definition.** A random variable is a function \(X: \Omega \to \mathbb{R}\). The randomness comes from the outcome \(\omega\in\Omega\), not from the function rule.
+A **random variable** is a function from the sample space to the real numbers.
 
-**Support (possible values).** The **support** is the set of values that \(X\) can take with positive probability (for discrete RVs, it’s a set like \(\{0,1,2\}\), not an interval like \((0,1)\)).
+**X : Ω → ℝ**
 
-**Example.** If \(\Omega=\{1,2,3,4,5,6\}\) (fair die), one RV is \(X(\omega)=\omega\). Another is \(Y(\omega)=1\{\omega\text{ is odd}\}\in\{0,1\}\).
+The word *random* refers to the randomness of the outcome ω ∈ Ω, not the function rule.
+
+### Support
+The **support** of X is the set of values that X can take with positive probability.
+
+Example:
+- If X takes values 0 or 1, then the support is **{0,1}**, not (0,1).
 
 ---
 
-## 2. “Countable” and Discrete Random Variables
+## 2. Countable Sets and Discrete Random Variables
 
-**Definition (countably infinite).** A set is **countably infinite** if its elements can be listed in a sequence \(x_1,x_2,x_3,\dots\). The list does *not* need a simple pattern; it only needs a way to label each element with a natural number.
+A set is **countable** if its elements can be listed as a sequence:
+x₁, x₂, x₃, …
 
-**Definition (discrete RV).** \(X\) is **discrete** if its support is finite or countably infinite.
+The list does not need a simple pattern — it only needs a way to label each element with a natural number.
 
-**Note.** If the support is not countable (e.g., an interval), \(X\) is not discrete (typically continuous or mixed).
+A random variable is **discrete** if its support is:
+- finite, or
+- countably infinite
 
 ---
 
 ## 3. PMF (Probability Mass Function)
 
-**Definition.** For a discrete RV \(X\), the **PMF** is
-\[
-p_X(x)=P(X=x).
-\]
+For a discrete random variable X, the **PMF** is defined by:
 
-**Rules.**
-- \(p_X(x)\ge 0\)
-- \(\sum_x p_X(x)=1\) (sum over all values in the support)
-- If \(x\) is not in the support, then \(p_X(x)=0\)
+**pₓ(x) = P(X = x)**
 
-**Example.** If \(P(Y=0)=0.2\), \(P(Y=1)=0.5\), \(P(Y=2)=0.3\), then \(p_Y(0)=0.2\), \(p_Y(1)=0.5\), \(p_Y(2)=0.3\).
+Properties:
+- pₓ(x) ≥ 0
+- Σ pₓ(x) = 1  (sum over all values in the support)
+- If x is not in the support, then pₓ(x) = 0
+
+Example:
+- P(Y = 0) = 0.2
+- P(Y = 1) = 0.5
+- P(Y = 2) = 0.3
 
 ---
 
 ## 4. CDF (Cumulative Distribution Function)
 
-**Definition.** For any RV (discrete or continuous),
-\[
-F_X(x)=P(X\le x).
-\]
+For any random variable (discrete or continuous), the **CDF** is:
 
-**Properties.**
-- \(0\le F_X(x)\le 1\)
-- \(F_X(x)\) is non-decreasing in \(x\)
-- \(\lim_{x\to -\infty}F_X(x)=0\), \(\lim_{x\to\infty}F_X(x)=1\)
+**Fₓ(x) = P(X ≤ x)**
 
-**Discrete link.**
-\[
-F_X(x)=\sum_{t\le x} p_X(t),\qquad
-p_X(x)=F_X(x)-F_X(x^-).
-\]
-Here \(F_X(x^-)\) is the left-limit at \(x\) (the CDF’s jump size at \(x\) equals \(p_X(x)\)).
+Properties:
+- 0 ≤ Fₓ(x) ≤ 1
+- Fₓ(x) is non-decreasing
+- limₓ→−∞ Fₓ(x) = 0
+- limₓ→∞ Fₓ(x) = 1
+
+Discrete case:
+- Fₓ(x) = Σ pₓ(t) for all t ≤ x
+- pₓ(x) = Fₓ(x) − Fₓ(x⁻)
+
+The PMF corresponds to the jump sizes of the CDF.
 
 ---
 
-## 5. Continuous RVs and PDF (Probability Density Function)
+## 5. Continuous Random Variables and PDF
 
-**Key fact.** If \(X\) is continuous, then \(P(X=x)=0\) for every real \(x\). Probabilities come from **intervals**, not points.
+If X is **continuous**, then:
 
-**Definition (PDF).** A **PDF** \(f_X\) satisfies
-\[
-F_X(x)=\int_{-\infty}^{x} f_X(t)\,dt,
-\qquad
-P(a\le X\le b)=\int_a^b f_X(t)\,dt.
-\]
+**P(X = x) = 0** for every real x.
 
-**Rules.**
-- \(f_X(x)\ge 0\)
-- \(\int_{-\infty}^{\infty} f_X(x)\,dx=1\)
-- \(f_X(x)\) is a *density*, not a probability.
+Probabilities come from intervals, not points.
 
-**Derivative link (when differentiable).** \(f_X(x)=\frac{d}{dx}F_X(x)\).
+The **PDF (probability density function)** fₓ(x) satisfies:
+- Fₓ(x) = ∫ from −∞ to x of fₓ(t) dt
+- P(a ≤ X ≤ b) = ∫ from a to b of fₓ(t) dt
+
+Properties:
+- fₓ(x) ≥ 0
+- ∫ from −∞ to ∞ of fₓ(x) dx = 1
+
+The PDF is a **density**, not a probability.
 
 ---
 
 ## 6. Expectation (Mean)
 
-**Definition (discrete).**
-\[
-\mathbb{E}[X]=\sum_x x\,p_X(x).
-\]
+Expectation is a weighted average.
 
-**Definition (continuous, when integrable).**
-\[
-\mathbb{E}[X]=\int_{-\infty}^{\infty} x\,f_X(x)\,dx.
-\]
+Discrete case:
+- **E[X] = Σ x · pₓ(x)**
 
-**Linearity (always).** For constants \(a,b\),
-\[
-\mathbb{E}[aX+bY]=a\mathbb{E}[X]+b\mathbb{E}[Y].
-\]
+Continuous case:
+- **E[X] = ∫ x · fₓ(x) dx**
+
+### Linearity of Expectation
+
+For constants a, b:
+
+**E[aX + bY] = aE[X] + bE[Y]**
+
 No independence is required.
 
-**Example.** If \(Y\in\{0,1,2\}\) with probabilities \(0.2,0.5,0.3\),
-\(\mathbb{E}[Y]=0\cdot0.2+1\cdot0.5+2\cdot0.3=1.1\).
+Example:
+- If Y ∈ {0,1,2} with probabilities 0.2, 0.5, 0.3
+- Then E[Y] = 1.1
 
 ---
 
 ## 7. Expectation of a Function (LOTUS)
 
-**Definition (LOTUS).** For a function \(g\),
+For a function g:
 
-- Discrete:
-  \[
-  \mathbb{E}[g(X)] = \sum_x g(x)p_X(x).
-  \]
-- Continuous:
-  \[
-  \mathbb{E}[g(X)] = \int g(x)f_X(x)\,dx.
-  \]
+Discrete:
+- **E[g(X)] = Σ g(x) · pₓ(x)**
 
-**Common warning.** In general \(\mathbb{E}[g(X)]\ne g(\mathbb{E}[X])\) unless \(g\) is linear.
+Continuous:
+- **E[g(X)] = ∫ g(x) · fₓ(x) dx**
 
-**Indicator function.** \(1\{A\}\) (also written \(\mathbf{1}_{\{A\}}\) or \(\chi_A\)) equals 1 if event \(A\) occurs and 0 otherwise. Key identity:
-\[
-\mathbb{E}[1\{A\}] = P(A).
-\]
+In general:
+- **E[g(X)] ≠ g(E[X])**, unless g is linear
+
+### Indicator Function
+
+The indicator of an event A is written as **1{A}**.
+
+- 1{A} = 1 if A occurs
+- 1{A} = 0 otherwise
+
+Key identity:
+- **E[1{A}] = P(A)**
 
 ---
 
 ## 8. Variance and Standard Deviation
 
-**Definition.**
-\[
-\operatorname{Var}(X)=\mathbb{E}[(X-\mathbb{E}[X])^2].
-\]
+Variance measures spread around the mean.
 
-**Computational formula.**
-\[
-\operatorname{Var}(X)=\mathbb{E}[X^2]-(\mathbb{E}[X])^2.
-\]
+Definition:
+- **Var(X) = E[(X − E[X])²]**
 
-**Standard deviation.** \(\operatorname{SD}(X)=\sqrt{\operatorname{Var}(X)}\).
+Equivalent formula:
+- **Var(X) = E[X²] − (E[X])²**
 
-**Rules.**
-- \(\operatorname{Var}(X+c)=\operatorname{Var}(X)\)
-- \(\operatorname{Var}(aX)=a^2\operatorname{Var}(X)\)
+Standard deviation:
+- **SD(X) = √Var(X)**
+
+Rules:
+- Var(X + c) = Var(X)
+- Var(aX) = a² Var(X)
 
 ---
 
 ## 9. Covariance and Correlation
 
-**Covariance definition.**
-\[
-\operatorname{Cov}(X,Y)=\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])].
-\]
+Covariance measures linear dependence between X and Y.
 
-**Equivalent formula (derived by expanding).**
-\[
-\operatorname{Cov}(X,Y)=\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y].
-\]
+Definition:
+- **Cov(X,Y) = E[(X − E[X])(Y − E[Y])]**
 
-**Variance as covariance.** \(\operatorname{Var}(X)=\operatorname{Cov}(X,X)\).
+Equivalent formula:
+- **Cov(X,Y) = E[XY] − E[X]E[Y]**
 
-**Correlation.**
-\[
-\rho_{X,Y}=\frac{\operatorname{Cov}(X,Y)}{\operatorname{SD}(X)\operatorname{SD}(Y)},\quad -1\le \rho_{X,Y}\le 1.
-\]
+Variance is a special case:
+- **Var(X) = Cov(X,X)**
+
+Correlation:
+- **ρ = Cov(X,Y) / (SD(X) · SD(Y))**
+- −1 ≤ ρ ≤ 1
 
 ---
 
 ## 10. Independence (Concept 8)
 
-**Events.** Events \(A,B\) are independent if \(P(A\cap B)=P(A)P(B)\).
+Events A and B are **independent** if:
+- **P(A ∩ B) = P(A)P(B)**
 
-**Discrete RVs.** \(X\) and \(Y\) are independent if
-\[
-P(X=x, Y=y)=P(X=x)P(Y=y)\quad\text{for all }x,y.
-\]
+Discrete random variables X and Y are independent if:
+- **P(X = x, Y = y) = P(X = x)P(Y = y)** for all x, y
 
-**General CDF form.** \(X,Y\) are independent if
-\[
-P(X\le x, Y\le y)=P(X\le x)P(Y\le y)\quad\text{for all }x,y.
-\]
+Equivalent CDF form:
+- **P(X ≤ x, Y ≤ y) = P(X ≤ x)P(Y ≤ y)**
 
-**Key facts.**
-- Independence \(\Rightarrow\ \operatorname{Cov}(X,Y)=0\).
-- \(\operatorname{Cov}(X,Y)=0\) does **not** imply independence in general.
+Key facts:
+- Independence ⇒ Cov(X,Y) = 0
+- Cov(X,Y) = 0 does not imply independence
 
 ---
 
-## Quick self-check
+## Quick Self-Check
 
-- I can define an RV as a function \(X: \Omega\to\mathbb{R}\).
-- I can compute and interpret PMF, CDF, and (when appropriate) PDF.
-- I can compute \(\mathbb{E}[X]\), \(\mathbb{E}[g(X)]\), \(\operatorname{Var}(X)\), \(\operatorname{Cov}(X,Y)\).
-- I can distinguish: PDF vs PMF, covariance vs independence.
+- I can define a random variable as a function X : Ω → ℝ.
+- I can compute PMF, CDF, and PDF.
+- I can compute E[X], Var(X), and Cov(X,Y).
+- I understand the difference between covariance and independence.

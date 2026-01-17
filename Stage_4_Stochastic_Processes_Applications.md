@@ -1,4 +1,4 @@
-# Stage 4 — Discrete-Time Markov Chains (Applications)
+# Stage 4 Summary Sheet: Discrete-Time Markov Chains (Applications)
 
 This document contains the **Applications** for Stage 4.  
 It follows exactly the same structure, tone, and explanation rhythm as the

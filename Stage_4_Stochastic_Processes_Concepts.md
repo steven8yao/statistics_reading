@@ -1,4 +1,4 @@
-# Stage 4 Summary Sheet: Stochastic Processes (Concepts)
+# # Stage 4 Summary Sheet: Discrete-Time Markov Chains (Concepts)
 
 This stage introduces **stochastic processes** and the conceptual foundation of discrete-time Markov chains.
 The writing style matches Stage 2: short definitions + interpretation + small examples.
